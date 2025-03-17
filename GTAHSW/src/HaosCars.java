@@ -28,7 +28,7 @@ public class HaosCars
         System.out.print("\nEnter the amount of cars you want to check: ");
         int choice = 1;
 
-        for (int i = 1; i <= choice; i++)
+        while (true)
         {
             if (input.hasNextInt())
             {
