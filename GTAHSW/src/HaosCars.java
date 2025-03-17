@@ -27,14 +27,25 @@ public class HaosCars
     {
         System.out.print("\nEnter the amount of cars you want to check: ");
         int choice = 1;
-        choice = input.nextInt();
-        input.nextLine();
 
         for (int i = 1; i <= choice; i++)
         {
-            System.out.print("Enter car name: " );
-            String carName = input.nextLine();
-            bonusWeekCars.add(carName);    
+            if (input.hasNextInt())
+            {
+                choice = input.nextInt();
+
+                for (int i = 1; i <= choice; i++)
+                {
+                    System.out.print("Enter car name: ");
+                    String carName = input.nextLine();
+                    bonusWeekCars.add(carName);
+                }
+                break;
+            }
+            else
+            {
+                System.out.print("Invalid input. Try again: ");
+            }
         }
 
         System.out.println("\nYou have entered: " + bonusWeekCars);
