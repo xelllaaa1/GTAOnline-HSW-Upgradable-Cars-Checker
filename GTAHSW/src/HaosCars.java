@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
+import java.util.List;
 
 public class HaosCars
 {
@@ -9,17 +9,24 @@ public class HaosCars
     {
         Scanner scanner = new Scanner(System.in);
         HaosCars obj = new HaosCars();
-        obj.setHSWCars();
         obj.setBonusWeekCars(scanner);
         obj.checkCars();
         obj.printCarsToBuy();
         scanner.close();
     }
 
-    private ArrayList<String> HSWCars = new ArrayList<>();
+    private ArrayList<String> HSWCars = new ArrayList<>(List.of("S95","AstronCustom","CycloneII","ArbiterGT",
+    "WeaponizedIgnus","TurismoClassic","SentinelXS", "Banshee","HakuchouDrag","DevesteEight","BriosoR/A",
+    "StrilingGT","VigeroZX","EntityMT","IssiRally","ItaliGTOStingerTT","MonstroCiti","BuffaloEVX",
+    "LaCoureuse","VigeroZXConvertible","Vivanite","Niobe","EurosX32","BansheeGTS","FireboltASP"));
     private ArrayList<String> bonusWeekCars = new ArrayList<>();
     private ArrayList<String> carsToBuy = new ArrayList<>();
     
+    public void setBonusWeekCarsLogic()
+    {
+        
+    }
+
     public ArrayList<String> setBonusWeekCars (Scanner input)
     {
         System.out.print("\nEnter the amount of cars you want to check: ");
@@ -30,18 +37,31 @@ public class HaosCars
             if (input.hasNextInt())
             {
                 choice = input.nextInt();
+                input.nextLine();
 
-                for (int i = 1; i <= choice; i++)
+                if (choice >= 0)
                 {
-                    System.out.print("Enter car name: ");
-                    String carName = input.nextLine();
-                    bonusWeekCars.add(carName);
+                    for (int i = 1; i <= choice; i++)
+                    {
+                        System.out.print("Enter car name: ");
+                        String carName = input.nextLine();
+                        bonusWeekCars.add(carName);
+                    }
+                    
+                    break;    
                 }
-                break;
+
+                else
+                {
+                    System.out.println("Invalid input. Choice cannot be negative.");
+                    System.out.print("Try again: ");
+                }
             }
             else
             {
-                System.out.print("Invalid input. Try again: ");
+                System.out.println("Invalid input. Choice cannot contain non-numeric values."); 
+                System.out.print("Try again: ");
+                input.next();
             }
         }
 
@@ -49,38 +69,9 @@ public class HaosCars
         return bonusWeekCars;
     }
 
-    public void setHSWCars()
-    {
-        HSWCars.add("S95");
-        HSWCars.add("AstronCustom");
-        HSWCars.add("CycloneII");
-        HSWCars.add("ArbiterGT");
-        HSWCars.add("WeaponizedIgnus");
-        HSWCars.add("TurismoClassic");
-        HSWCars.add("SentinelXS");
-        HSWCars.add("Banshee");
-        HSWCars.add("HakuchouDrag");
-        HSWCars.add("DevesteEight");
-        HSWCars.add("BriosoR/A");
-        HSWCars.add("StrilingGT");
-        HSWCars.add("VigeroZX");
-        HSWCars.add("EntityMT");
-        HSWCars.add("IssiRally");
-        HSWCars.add("ItaliGTOStingerTT");
-        HSWCars.add("MonstroCiti");
-        HSWCars.add("BuffaloEVX");
-        HSWCars.add("LaCoureuse");
-        HSWCars.add("VigeroZXConvertible");
-        HSWCars.add("Vivanite");
-        HSWCars.add("Niobe");
-        HSWCars.add("EurosX32");
-        HSWCars.add("BansheeGTS");
-        HSWCars.add("FireboltASP");
-    }
-
     public ArrayList<String> checkCars ()
     {
-        Set<String> hswSet = new HashSet<>();
+        HashSet<String> hswSet = new HashSet<>(HSWCars);
 
         for (String HSWCar : HSWCars)
         {
