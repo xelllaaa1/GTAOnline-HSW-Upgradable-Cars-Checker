@@ -9,9 +9,7 @@ public class HaosCars
     {
         Scanner scanner = new Scanner(System.in);
         HaosCars obj = new HaosCars();
-        obj.setBonusWeekCars(scanner);
-        obj.checkCars();
-        obj.printCarsToBuy();
+        obj.userInterface(scanner);
         scanner.close();
     }
 
@@ -21,30 +19,67 @@ public class HaosCars
     "LaCoureuse","VigeroZXConvertible","Vivanite","Niobe","EurosX32","BansheeGTS","FireboltASP"));
     private ArrayList<String> bonusWeekCars = new ArrayList<>();
     private ArrayList<String> carsToBuy = new ArrayList<>();
-    
-    public void setBonusWeekCarsLogic()
-    {
-        
-    }
 
-    public ArrayList<String> setBonusWeekCars (Scanner input)
+    public void userInterface (Scanner scanner)
     {
-        System.out.print("\nEnter the amount of cars you want to check: ");
-        int choice = 1;
-
         while (true)
         {
-            if (input.hasNextInt())
-            {
-                choice = input.nextInt();
-                input.nextLine();
+            System.out.println("\nDiscounted HSW Cars");
+            System.out.println("1. See HSW-Upgradable Car List.");
+            System.out.println("2. Enter cars.");
+            System.out.println("3. Exit.");
+            System.out.print("Enter your choice: ");
 
-                if (choice >= 0)
+            if (scanner.hasNextInt())
+            {
+                int menuChoice = scanner.nextInt();
+                switch (menuChoice)
                 {
-                    for (int i = 1; i <= choice; i++)
+                    case 1:
+                    System.out.println("\nHSW-Upgradable Cars: ");
+                    System.out.println(HSWCars);
+                    break;
+    
+                    case 2:
+                    setBonusWeekCars(scanner);
+                    checkCars();
+                    printCarsToBuy();
+                    break;
+    
+                    case 3:
+                    return;
+    
+                    default:
+                    System.out.println("Invalid option. Enter 1, 2, or 3. Try again.");
+                }
+            }
+            else
+            {
+                System.out.println("Invalid option. Choice cannot contain non-numeric values. Try again.");
+                scanner.next();
+            }
+        }
+    }
+
+    public ArrayList<String> setBonusWeekCars (Scanner scanner)
+    {
+        System.out.print("\nEnter the amount of cars you want to check: ");
+        int bonusWeekCarsAmount = 1;
+        
+        while (true)
+        {
+            if (scanner.hasNextInt())
+            {
+                System.out.println("\nPlease enter car names in lowercase with no spaces.");
+                bonusWeekCarsAmount = scanner.nextInt();
+                scanner.nextLine();
+
+                if (bonusWeekCarsAmount >= 0)
+                {
+                    for (int i = 1; i <= bonusWeekCarsAmount; i++)
                     {
                         System.out.print("Enter car name: ");
-                        String carName = input.nextLine();
+                        String carName = scanner.nextLine();
                         bonusWeekCars.add(carName);
                     }
                     
@@ -61,7 +96,7 @@ public class HaosCars
             {
                 System.out.println("Invalid input. Choice cannot contain non-numeric values."); 
                 System.out.print("Try again: ");
-                input.next();
+                scanner.next();
             }
         }
 
@@ -71,7 +106,7 @@ public class HaosCars
 
     public ArrayList<String> checkCars ()
     {
-        HashSet<String> hswSet = new HashSet<>(HSWCars);
+        HashSet<String> hswSet = new HashSet<>();
 
         for (String HSWCar : HSWCars)
         {
